@@ -1,0 +1,27 @@
+{% extends 'user/base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'user/css/login.css' %}"/>
+<div class="login-page">
+    <div class="form">
+      <p>Login</p>
+      <form class="login-form" action="" method="POST">
+        {% csrf_token %}
+        {% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %} style="color:Red">{{ message }}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+        <hr>
+        <input type="text" name='vid' placeholder="VoterID"/>
+        
+        <input type="password" name='pswd' placeholder="password"/>
+        <button type="submit">login</button>
+        <p class="message">Not registered? <a href="{% url 'register' %}">Create an account</a></p>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+

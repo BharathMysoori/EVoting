@@ -1,0 +1,27 @@
+{% extends 'user/base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'user/css/login.css' %}"/>
+<div class="login-page">
+    <div class="form">
+        Verification
+      <hr>
+      <form class="login-form" action="" method="POST">
+        {% csrf_token %}
+        {% if messages %}
+        <ul class="alert alert-success">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %} style="color:Red">{{ message }}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+        
+        <input type="text" name='otp' placeholder="Enter OTP"/>
+        <inputt type="text" name='mail' placeholder="Enter registered mailID"/>
+        <hr>
+        <button type="submit" href="{% url 'register' %}">Verfiy</button>
+        
+      </form>
+    </div>
+  </div>
+{% endblock %}

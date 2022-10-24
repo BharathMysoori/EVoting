@@ -1,0 +1,30 @@
+{% extends 'user/base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'user/css/home.css' %}"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+{% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %} style="color:greenyellow">{{ message }}</li>
+        {% endfor %}
+        </ul>
+{% endif %}
+
+{% for d in data%}
+<div class="cards">
+    <div class="card">
+        <img src= {{d.logo.url}} > 
+        <p>{{d.candiname}}</p> 
+        <form method="POST">
+            {% csrf_token %}
+            VOTE
+            <input type="submit" value={{d.candiname}} name="cvote">
+            
+        </form>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

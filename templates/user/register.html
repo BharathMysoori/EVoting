@@ -1,0 +1,37 @@
+{% extends 'user/base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'user/css/login.css' %}"/>
+<div class="login-page">
+    <div class="form">
+        Register
+      <hr>
+      <form class="login-form" action="" method="POST">
+        {% csrf_token %}
+        {% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %} style="color:Red">{{ message }}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+        
+        <input type="text" name='voterid' placeholder="Voted ID" required>
+        <input type="text" name='voterage' placeholder="Age" required>
+        <input type="email" name='mailid'placeholder="Email" required>
+        <input type="password" name="pswd" placeholder="password" required>
+        <input type="text" name="city" placeholder="city" required >
+        <select name="ward" class='form-control form-control-lg'>
+          <option value="Ward1">Ward1</option>
+          <option value="Ward2">Ward2</option>
+          <option value="Ward3">Ward3</option>
+          <option value="Ward4">Ward4</option>
+        </select>
+        <hr>
+        <button type="submit" href="{% url 'register' %}">Register</button>
+        
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
