@@ -21,7 +21,7 @@ class voter(models.Model):
     age = models.IntegerField(blank=True,null=True)
     ward = models.CharField(max_length=20,choices=wards,blank=True,default='Unknown',null=True)
     city = models.CharField(max_length=50,blank=True,null=True)
-
+    dp  = models.ImageField(blank=True,null=True,default='voterImgs/default.png',upload_to='voterImgs/')
     otp = models.CharField(max_length=6,null=True,blank=True)
     voted  = models.BooleanField(null=True,default=False)
     votedTo = models.CharField(null=True,blank=True,max_length=15)

@@ -15,9 +15,9 @@
         </ul>
         {% endif %}
         <hr>
-        <input type="text" name='vid' placeholder="VoterID"/>
+        <input type="text" name='vid' placeholder="VoterID" required>
         
-        <input type="password" name='pswd' placeholder="password"/>
+        <input type="password" name='pswd' placeholder="password" required>
         <button type="submit">login</button>
         <p class="message">Not registered? <a href="{% url 'register' %}">Create an account</a></p>
       </form>

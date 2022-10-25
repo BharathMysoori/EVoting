@@ -33,7 +33,7 @@ def home(request):
             loguser.voter.voted = True
             loguser.voter.votedTo = vote
             loguser.save()
-            return HttpResponse("Voted")
+            return redirect('home')
     return render(request,'user/home.html',{'data':candata})
 
     
@@ -44,28 +44,35 @@ def loginView(request):
         vid = request.POST.get('vid')
         pwsd = request.POST.get('pswd')
         
-        otp = random.randint(1000,9999)
-        otp = str(otp)
-        usr = User.objects.get(username=vid)
-        print(usr)
-        usr.voter.otp = otp
-        usr.save()
-        subj = 'Login for Vote'
-
-        msg = f'Your OTP:{otp} for login'
+        
         print(vid,pwsd)
-        print(usr.email)
-        send_mail(subj,msg,EMAIL_HOST_USER,[usr.email],fail_silently=False)
+    
+
+        
         
         
         
         user = authenticate(request,username=vid,password=pwsd)
         print("user",user)
         if user is not None:
+            try:
+                otp = random.randint(1000,9999)
+                otp = str(otp)
+                usr = User.objects.get(username=vid)
+                print(usr)
+                usr.voter.otp = otp
+                usr.save()
+                subj = 'Login for Vote'
+
+                msg = f'Your OTP:{otp} for login'
+                send_mail(subj,msg,EMAIL_HOST_USER,[usr.email],fail_silently=False)
+            except Exception as e:
+                return render(request,'user/noconnection.html')
+            
 
             login(request,user)
             print('loged in')
-            messages.success(request, 'OTP sent to the mail id')
+            messages.success(request, 'OTP sent to the mail id'+usr.email)
             return redirect('otp')
             #return render(request,'user/home.html')
         else:
@@ -148,6 +155,14 @@ def logoutView(request):
             
 def profileView(request):
     data = voter.objects.filter(user=request.user)
+    if request.method == 'POST':
+        for d in data:
+            d.dp = request.FILES.get('pic')
+            d.save()
+        print('PIC updated')
+            
+        
+
     return render(request,'user/userProfile.html',{'data':data})
 
             

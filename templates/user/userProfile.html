@@ -9,23 +9,22 @@
 {% for d in data %}
 
 <div class="container rounded bg-white mt-5 mb-5"> <div class="row"> <div class="col-md-3 border-right"> <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-	<img class="rounded-circle mt-5" src="{{d.userpic.url}}"  style="width: 250px; height: 250px">
+	<img class="rounded-circle mt-5" src="{{d.dp.url}}"  style="width: 250px; height: 250px">
 	<span class="font-weight-bold">{{d.user}}</span>
 	
-	<span class="text-black-50">{{d.ward}}</span>
-	<span class="text-black-50">{{d.city}}</span>
-    <span class="text-black-50">{{d.votedTo}}</span>
+	<span class="text-black-50"></span>
+	
 	
 	
 </div> </div> 
 <div class="col-md-5 border-right"> <div class="p-3 py-5"> <div class="d-flex justify-content-between align-items-center mb-3">
  <h4 class="text-right">My profile</h4> 
 </div>
-<form action="" method = "POST"  enctype="multipart/form-data">
+<form action="{% url 'profile' %}" method = "POST"  enctype="multipart/form-data">
           {% csrf_token %}
  <div class="row mt-2">
   <div class="col-md-6">
-  			<label class="labels">Name</label>
+  			<label class="labels">{{d.user}}</label>
   			<input type="text" class="form-control" placeholder='firstName' value=""name='fname'>
   	</div>
   		 <div class="col-md-6">
@@ -35,28 +34,21 @@
   		</div> 
   		<div class="row mt-3"> 
   			<div class="col-md-12">
-  				<label class="labels">PhoneNumber</label>
-  				<input type="text" class="form-control" placeholder="enter phone number" value="" name='contact'>
+  				<label class="labels">{{d.ward}}</label>
+  				<input type="text" class="form-control" placeholder="Contact Admin to change" value="" name='ward'>
   			</div>
   			 
   			  <div class="col-md-12">
-  			  	<label class="labels">Email ID</label>
-  			  	<input type="text" class="form-control" placeholder="enter email id" value="" name='mailid'></div>
-  			  	 <div class="col-md-12">
-  			  	<label class="labels">Category</label>
-        			<select name="category" class='form-control'>
-                      <option value="Electronics">Electronics</option>
-                      <option value="Clothing">Clothing</option>
-                      <option value="Furniture">Furniture</option>
-                      <option value="Books">Books</option>
-        			</select></div>
+  			  	<label class="labels">{{d.city}}</label>
+  			  	<input type="text" class="form-control" placeholder="Contact Admin to change" value="" name='city'></div>
+  			  	 
  							  			  	 <div class="col-md-12">
  							  			  	 	<label class="labels">Change Image</label>
  							  			  	 	<input type="file" class='form-control' name='pic'>
  							  			  	 </div>
   			  	
   			  		  	  <div class="mt-5 text-center">
-  			  		  	  	<button class="btn btn-primary profile-button" href='{% url "profile" %}'>Save Profile</button>
+  			  		  	  	<button class="btn btn-primary profile-button" >Save Profile</button>
   			  		  	  </div>		
   			  		  	   </div>
   			  		  	    </div>
